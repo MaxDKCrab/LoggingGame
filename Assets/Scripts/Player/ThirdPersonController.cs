@@ -11,10 +11,8 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private Transform camera;
     [SerializeField] private CharacterController charControll;
-    [SerializeField] private float speed;
-    [SerializeField] private float sprintSpeed;
     [SerializeField] private float turnSmoothTime;
-    [SerializeField] private float jumpForce;
+    [SerializeField] private StatsObject stats;
     private float turnSmoothVelocity;
     private Animator anim;
     private bool isGrounded;
@@ -42,7 +40,7 @@ public class ThirdPersonController : MonoBehaviour
         
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            velocity.y += jumpForce;
+            velocity.y += stats.jumpForce;
         }
         
         if (direction.magnitude >= 0.1f)
@@ -55,11 +53,11 @@ public class ThirdPersonController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                charControll.Move(moveDirection.normalized * sprintSpeed * Time.deltaTime);
+                charControll.Move(moveDirection.normalized * stats.sprintSpeed * Time.deltaTime);
             }
             else
             {
-                charControll.Move(moveDirection.normalized * speed * Time.deltaTime);
+                charControll.Move(moveDirection.normalized * stats.speed * Time.deltaTime);
             }
            
             anim.SetBool("IsMove",true);
